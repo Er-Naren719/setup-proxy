@@ -23,6 +23,47 @@ app.get("/api/jokes", (req, res) => {
 	]);
 });
 
+app.get("/api/products", (req, res) => {
+	const products = [
+		{
+			id: 1,
+			name: "Laptop",
+			price: 999.99,
+		},
+		{
+			id: 2,
+			name: "Smartphone",
+			price: 499.99,
+		},
+		{
+			id: 3,
+			name: "Tablet",
+			price: 299.99,
+		},
+		{
+			id: 4,
+			name: "Smartwatch",
+			price: 199.99,
+		},
+		{
+			id: 5,
+			name: "Headphones",
+			price: 89.99,
+		},
+	];
+
+	if (req.query.search) {
+		const filteredProducts = products.filter((product) =>
+			product.name.toLowerCase().includes(req.query.search.toLowerCase())
+		);
+		return res.json(filteredProducts);
+	}
+
+	setTimeout(() => {
+		res.json(products);
+	}, 3000);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
